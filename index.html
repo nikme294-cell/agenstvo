@@ -3,81 +3,319 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Agency - Мощные локальные модели</title>
+    <title>AI Agency — локальные модели и AI для бизнеса</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body { background-color: #020617; color: #f8fafc; }
-        .glass-card {
-            background: rgba(30, 41, 59, 0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+        * {
+            user-select: none; /* запрет выделения текста */
+            -webkit-tap-highlight-color: transparent;
         }
-        .glass-card:hover {
-            border-color: #38bdf8;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px -10px rgba(56, 189, 248, 0.2);
+        body {
+            background: #ffffff;
+            color: #111827;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+        }
+        /* простые карточки без лишних эффектов */
+        .card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 24px;
+            transition: all 0.2s ease;
+        }
+        .card:hover {
+            border-color: #9ca3af;
+            background: #fefefe;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            transition: all 0.2s;
+            color: #6b7280;
+        }
+        .tab-btn.active {
+            color: #111827;
+            border-bottom-color: #111827;
+        }
+        .tab-btn:hover:not(.active) {
+            color: #374151;
+            border-bottom-color: #d1d5db;
+        }
+        .badge {
+            background: #f3f4f6;
+            color: #1f2937;
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 0.2rem 0.7rem;
+            border-radius: 40px;
+            border: 1px solid #e5e7eb;
+        }
+        hr {
+            border-color: #e5e7eb;
+        }
+        .table-minimal th {
+            font-weight: 500;
+            color: #6b7280;
+            background: #f9fafb;
+        }
+        .table-minimal td {
+            border-color: #f0f0f0;
+        }
+        a {
+            color: #111827;
+            text-decoration: none;
+        }
+        .footer-email {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            border-bottom: 1px dashed #d4d4d8;
+        }
+        .footer-email:hover {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+        }
+        /* скрытие контента */
+        .hidden-tab {
+            display: none;
+        }
+        .container-custom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        @media (max-width: 768px) {
+            .container-custom {
+                padding: 0 1.25rem;
+            }
         }
     </style>
 </head>
-<body class="font-sans antialiased">
+<body>
 
-    <!-- Hero Section -->
-    <section class="max-w-5xl mx-auto pt-20 pb-16 px-6 text-center">
-        <h1 class="text-5xl md:text-6xl font-black mb-6 tracking-tight bg-gradient-to-r from-sky-400 to-indigo-500 bg-clip-text text-transparent">
+    <!-- Hero — минимум графики, четко -->
+    <div class="container-custom pt-16 pb-8 text-center">
+        <h1 class="text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-4">
             Agency.AI
         </h1>
-        <p class="text-xl text-slate-400 max-w-2xl mx-auto">
-            Развертывание и настройка передовых языковых моделей на ваших серверах. Конфиденциально. Быстро. Без цензуры.
+        <p class="text-lg text-gray-500 max-w-xl mx-auto">
+            Локальный ИИ на ваших серверах. Без компромиссов.<br>
+            Готовые сборки, полная приватность.
         </p>
-    </section>
+    </div>
 
-    <!-- Models Grid -->
-    <main class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+    <!-- Вкладки (табы) -->
+    <div class="container-custom mt-10">
+        <div class="flex justify-center gap-8 border-b border-gray-200">
+            <button id="tabLocalBtn" class="tab-btn active py-3 px-1 text-base font-medium transition">📦 Локальные нейросети</button>
+            <button id="tabBusinessBtn" class="tab-btn py-3 px-1 text-base font-medium transition">⚡ AI для бизнеса</button>
+        </div>
+    </div>
 
-        <!-- Qwen 2.5 -->
-        <div class="glass-card p-8 rounded-3xl">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold italic">Qwen 2.5</h2>
-                <span class="px-3 py-1 bg-sky-500/10 text-sky-400 text-xs font-bold rounded-full border border-sky-500/20 uppercase">Universal</span>
+    <!-- ========== ВКЛАДКА 1: Локальные нейросети ========== -->
+    <div id="tabLocalContent" class="container-custom py-12">
+        <!-- три карточки: готовые установки + все модели -->
+        <div class="grid md:grid-cols-3 gap-8 mb-16">
+            <!-- Qwen 2.5 -->
+            <div class="card p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <i class="fas fa-microchip text-2xl text-gray-700"></i>
+                    <span class="badge">ready-to-run</span>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Qwen 2.5</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-4">Флагманская модель. Русский язык, кодинг, контекст 128K. Идеально для сложных инструкций и агентов.</p>
+                <div class="bg-gray-50 rounded-xl p-3 text-xs text-gray-600 font-mono border border-gray-100 mb-4">
+                    <i class="fas fa-terminal mr-1 text-gray-500"></i> Состав сборки:<br>
+                    Ollama + Open WebUI • Qwen2.5-72B/32B • автозапуск • веб-интерфейс
+                </div>
+                <ul class="text-xs text-gray-500 space-y-1.5">
+                    <li>✓ Развертывание за 20 минут</li>
+                    <li>✓ Полная приватность данных</li>
+                    <li>✓ Поддержка инструментов (tools)</li>
+                </ul>
             </div>
-            <p class="text-slate-300 leading-relaxed mb-6">
-                Флагманская модель от Alibaba. Лучший выбор для работы с русским языком, написания кода и сложных логических цепочек. Поддерживает огромный контекст и идеально слушается инструкций.
-            </p>
-            <ul class="text-sm text-slate-500 space-y-2">
-                <li>• Оптимизировано под Ollama</li>
-                <li>• Высокая скорость генерации</li>
-                <li>• Работа с внешними инструментами (Tools)</li>
-            </ul>
+            <!-- DeepSeek R1 -->
+            <div class="card p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <i class="fas fa-brain text-2xl text-gray-700"></i>
+                    <span class="badge">reasoning</span>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">DeepSeek R1</h3>
+                <p class="text-gray-500 text-sm leading-relaxed mb-4">Цепочки рассуждений (CoT), математика, логика. Лучший выбор для аналитики и научных задач.</p>
+                <div class="bg-gray-50 rounded-xl p-3 text-xs text-gray-600 font-mono border border-gray-100 mb-4">
+                    <i class="fas fa-wrench mr-1 text-gray-500"></i> Пакет Deep Researcher:<br>
+                    DeepSeek-R1-Distill + vLLM • поиск через API • векторная БД
+                </div>
+                <ul class="text-xs text-gray-500 space-y-1.5">
+                    <li>✓ Агентное планирование</li>
+                    <li>✓ Работа с PDF / Excel / API</li>
+                    <li>✓ 4-bit / 8-bit квантизация</li>
+                </ul>
+            </div>
+            <!-- Конфигуратор / все модели -->
+            <div class="card p-6 bg-white">
+                <div class="flex items-center gap-2 mb-3">
+                    <i class="fas fa-sliders-h text-gray-700 text-xl"></i>
+                    <h3 class="text-lg font-semibold text-gray-900">Конфигуратор сборки</h3>
+                </div>
+                <p class="text-gray-500 text-sm mb-4">Любая open-source модель + инструменты под ваш бюджет и железо.</p>
+                <div class="space-y-2 text-sm border-t border-gray-100 pt-3">
+                    <div class="flex justify-between"><span class="text-gray-600">Llama 3.3 / 3.1</span><span class="text-gray-500">70B, 8B</span></div>
+                    <div class="flex justify-between"><span class="text-gray-600">Mistral / Mixtral 8x7B</span><span class="text-gray-500">MoE, высокая скорость</span></div>
+                    <div class="flex justify-between"><span class="text-gray-600">CodeLlama / DeepSeek-Coder</span><span class="text-gray-500">dev-optimized</span></div>
+                    <div class="flex justify-between"><span class="text-gray-600">Файнтюнинг под бизнес</span><span class="text-gray-500">LoRA / QLoRA</span></div>
+                </div>
+                <div class="mt-5 pt-2 text-xs text-gray-400 border-t border-gray-100">➕ В сборку: Ollama, Open WebUI, n8n, мониторинг, докеризация</div>
+            </div>
         </div>
 
-        <!-- DeepSeek R1 -->
-        <div class="glass-card p-8 rounded-3xl">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold italic">DeepSeek R1</h2>
-                <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-bold rounded-full border border-purple-500/20 uppercase">Reasoning</span>
+        <!-- Блок "все доступные модели и готовые установки" (просто и понятно) -->
+        <div class="card p-7 mb-12">
+            <div class="flex flex-wrap justify-between items-center gap-3 border-b border-gray-200 pb-4 mb-5">
+                <h2 class="text-xl font-semibold text-gray-900">🧩 Локальный ИИ — без облаков</h2>
+                <span class="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">под ключ</span>
             </div>
-            <p class="text-slate-300 leading-relaxed mb-6">
-                Модель нового поколения с упором на глубокие рассуждения (CoT). Превосходит аналоги в математике, логике и научном поиске. Умеет "думать" перед тем, как дать окончательный ответ.
-            </p>
-            <ul class="text-sm text-slate-500 space-y-2">
-                <li>• Продвинутое планирование задач</li>
-                <li>• Доступ к интернету через поисковые API</li>
-                <li>• Эффективная работа на локальном железе</li>
-            </ul>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <p class="text-gray-600 leading-relaxed text-sm">Развертывание LLM на ваших серверах (on-premise) или приватном облаке. Мы предоставляем готовые скрипты, автоматизацию и поддержку. Вы получаете полный контроль над данными и инфраструктурой.</p>
+                    <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                        <li>✅ <strong class="text-gray-800">Готовые инсталляторы</strong> — Ubuntu, Debian, Docker Compose</li>
+                        <li>✅ <strong class="text-gray-800">Все популярные модели</strong> (GGUF, EXL2, Transformers) одной командой</li>
+                        <li>✅ <strong class="text-gray-800">Оптимизация под железо</strong> — CPU, NVIDIA, Apple Silicon, кластеры</li>
+                        <li>✅ <strong class="text-gray-800">Интеграция с Telegram, Slack, REST API</strong></li>
+                    </ul>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                    <div class="flex items-center gap-2 mb-2"><i class="fas fa-cube text-gray-600"></i><span class="font-mono text-sm font-medium">Пример сборки “AI Stack”</span></div>
+                    <pre class="text-xs text-gray-600 overflow-x-auto font-mono whitespace-pre-wrap">✔ Ollama + LangChain
+✔ Qdrant (векторный поиск)
+✔ Open WebUI с RAG
+✔ Автообновление моделей
+✔ Графана / метрики</pre>
+                    <div class="mt-3 text-xs text-gray-400">Развертывание от 1 дня. Консультация бесплатно.</div>
+                </div>
+            </div>
         </div>
 
-    </main>
+        <!-- Таблица моделей (все доступные) -->
+        <div class="overflow-x-auto rounded-xl border border-gray-200 bg-white">
+            <table class="min-w-full text-sm">
+                <thead class="bg-gray-50 text-gray-500 text-xs font-medium">
+                    <tr><th class="px-5 py-3 text-left">Модель</th><th class="px-5 py-3 text-left">Параметры</th><th class="px-5 py-3 text-left">Контекст</th><th class="px-5 py-3 text-left">Особенности</th></tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    <tr><td class="px-5 py-3 font-medium text-gray-800">Qwen 2.5</td><td class="text-gray-600">7B – 72B</td><td class="text-gray-600">128K</td><td class="text-gray-500">Русский язык, tools, кодинг</td></tr>
+                    <tr><td class="px-5 py-3 font-medium text-gray-800">DeepSeek-R1</td><td class="text-gray-600">32B / 70B</td><td class="text-gray-600">128K</td><td class="text-gray-500">Chain-of-Thought, логика, математика</td></tr>
+                    <tr><td class="px-5 py-3 font-medium text-gray-800">Llama 3.3</td><td class="text-gray-600">70B</td><td class="text-gray-600">128K</td><td class="text-gray-500">Бизнес, суммаризация, инструкции</td></tr>
+                    <tr><td class="px-5 py-3 font-medium text-gray-800">Mixtral 8x22B</td><td class="text-gray-600">141B (MoE)</td><td class="text-gray-600">64K</td><td class="text-gray-500">Высокая скорость, мультиязычность</td></tr>
+                    <tr><td class="px-5 py-3 font-medium text-gray-800">Gemma 2 / Phi-3</td><td class="text-gray-600">9B / 14B</td><td class="text-gray-600">8K-128K</td><td class="text-gray-500">Легкие, для edge-устройств</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center text-xs text-gray-400 mt-6">* Любая модель на ваш выбор — устанавливаем с нуля или используем готовый образ</div>
+    </div>
 
-    <!-- Contact Section -->
-    <footer class="max-w-3xl mx-auto pb-32 px-6 text-center">
-        <div class="h-px bg-gradient-to-r from-transparent via-slate-800 to-transparent mb-16"></div>
-        <h3 class="text-2xl font-semibold mb-4">Готовы к запуску?</h3>
-        <p class="text-slate-400 mb-8 text-lg">По вопросам сотрудничества и настройки серверов пишите нам напрямую:</p>
-        <a href="mailto:nikme294@gmail.com" class="text-2xl md:text-3xl font-mono font-bold text-sky-400 hover:text-sky-300 transition-colors">
+    <!-- ========== ВКЛАДКА 2: AI для бизнеса ========== -->
+    <div id="tabBusinessContent" class="container-custom py-12 hidden-tab">
+        <!-- 2 основные карточки решений -->
+        <div class="grid md:grid-cols-2 gap-8 mb-14">
+            <div class="card p-7">
+                <div class="flex items-center gap-3 mb-4"><i class="fas fa-building text-2xl text-gray-700"></i><h3 class="text-xl font-semibold text-gray-900">Корпоративный AI-ассистент</h3></div>
+                <p class="text-gray-500 text-sm">Приватный помощник на основе ваших документов, базы знаний, CRM. Поддержка 24/7, интеграция с 1С, Битрикс24, SAP.</p>
+                <div class="my-5 bg-gray-50 rounded-xl p-4 border border-gray-200">
+                    <div class="font-medium text-gray-800 text-sm mb-2">⚙️ Что входит:</div>
+                    <ul class="text-xs text-gray-600 space-y-1.5 list-disc list-inside">
+                        <li>RAG-пайплайн с векторным поиском</li>
+                        <li>Ролевая модель доступа (RBAC)</li>
+                        <li>Собственный API gateway, SLA 99.5%</li>
+                        <li>Автоматизация отчетов и email-рассылок</li>
+                    </ul>
+                </div>
+                <p class="text-gray-400 text-xs">Примеры: обработка обращений, генерация договоров, аналитика продаж.</p>
+            </div>
+            <div class="card p-7">
+                <div class="flex items-center gap-3 mb-4"><i class="fas fa-cloud-upload-alt text-2xl text-gray-700"></i><h3 class="text-xl font-semibold text-gray-900">LLM Factory Platform</h3></div>
+                <p class="text-gray-500 text-sm">Платформа для запуска нескольких моделей с балансировкой, кэшированием и автоматическим масштабированием. Для SaaS и enterprise.</p>
+                <div class="flex flex-wrap gap-2 my-4">
+                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs">vLLM + TensorRT</span>
+                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs">Ray Serve</span>
+                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs">Prometheus</span>
+                </div>
+                <ul class="text-sm text-gray-600 space-y-1">
+                    <li>✓ Доступ к 50+ open-source моделям</li>
+                    <li>✓ Тонкая настройка под бизнес-метрики</li>
+                    <li>✓ Соответствие GDPR / 152-ФЗ</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Все доступные модели для бизнеса + конфиги доступным языком -->
+        <div class="card p-7 mb-12">
+            <h2 class="text-xl font-semibold text-gray-900 mb-2 flex items-center gap-2"><i class="fas fa-th-large text-gray-600"></i> Все модели для бизнеса</h2>
+            <p class="text-gray-500 text-sm mb-6">Готовые конфигурации под ваши задачи: финансы, юриспруденция, e‑commerce, медицина. Помогаем с дообучением на корпоративных данных.</p>
+            <div class="grid sm:grid-cols-3 gap-4">
+                <div class="border border-gray-200 rounded-xl p-3 bg-white"><i class="fas fa-chart-line text-gray-600 mr-2"></i> <span class="font-medium text-gray-800">Финансовые модели</span><br><span class="text-xs text-gray-500">BloombergGPT, FinBERT, прогнозы, анализ отчетности</span></div>
+                <div class="border border-gray-200 rounded-xl p-3 bg-white"><i class="fas fa-gavel text-gray-600 mr-2"></i> <span class="font-medium text-gray-800">Юридические AI</span><br><span class="text-xs text-gray-500">Анализ договоров, судебная практика, Saiga/Llama legal</span></div>
+                <div class="border border-gray-200 rounded-xl p-3 bg-white"><i class="fas fa-database text-gray-600 mr-2"></i> <span class="font-medium text-gray-800">NL2SQL / BI</span><br><span class="text-xs text-gray-500">Генерация SQL, дашборды по запросу</span></div>
+            </div>
+            <div class="mt-6 p-4 bg-gray-50 rounded-xl border-l-4 border-gray-400">
+                <div class="flex items-center gap-3 flex-wrap"><i class="fas fa-microchip text-gray-600"></i><span class="text-sm text-gray-700">Архитектура: от одного сервера до Kubernetes. Включено автообновление, бэкапы, аудит действий.</span></div>
+            </div>
+        </div>
+
+        <!-- Преимущества простыми словами -->
+        <div class="flex flex-wrap justify-between gap-6 border-t border-gray-200 pt-10">
+            <div><i class="fas fa-chart-line text-xl text-gray-500"></i><p class="font-medium text-gray-800 mt-1">+35% эффективности</p><p class="text-xs text-gray-400">автоматизация рутины</p></div>
+            <div><i class="fas fa-shield-alt text-xl text-gray-500"></i><p class="font-medium text-gray-800 mt-1">Полный контроль данных</p><p class="text-xs text-gray-400">никаких утечек в облако</p></div>
+            <div><i class="fas fa-puzzle-piece text-xl text-gray-500"></i><p class="font-medium text-gray-800 mt-1">Интеграция за 10 дней</p><p class="text-xs text-gray-400">быстрый старт</p></div>
+            <div><i class="fas fa-headset text-xl text-gray-500"></i><p class="font-medium text-gray-800 mt-1">Сопровождение 24/7</p><p class="text-xs text-gray-400">инженерная поддержка</p></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="container-custom text-center py-20 border-t border-gray-200 mt-8">
+        <h3 class="text-2xl font-semibold text-gray-900 mb-3">Готовы к запуску?</h3>
+        <p class="text-gray-500 mb-6">По вопросам сотрудничества, настройки серверов или готовых сборок — пишите.</p>
+        <a href="mailto:nikme294@gmail.com" class="footer-email inline-block text-gray-900 hover:text-blue-600 transition">
             nikme294@gmail.com
         </a>
+        <p class="text-gray-400 text-xs mt-8 flex items-center justify-center gap-1"><i class="fas fa-lock text-gray-400 text-xs"></i> Конфиденциальность гарантирована. Данные только на вашей инфраструктуре.</p>
     </footer>
 
+    <script>
+        // Защита от копирования, правого клика
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+        document.addEventListener('copy', (e) => e.preventDefault());
+        document.addEventListener('cut', (e) => e.preventDefault());
+        
+        // Переключение вкладок (табов)
+        const tabLocalBtn = document.getElementById('tabLocalBtn');
+        const tabBusinessBtn = document.getElementById('tabBusinessBtn');
+        const localContent = document.getElementById('tabLocalContent');
+        const businessContent = document.getElementById('tabBusinessContent');
+        
+        function setActiveTab(tab) {
+            if (tab === 'local') {
+                tabLocalBtn.classList.add('active');
+                tabBusinessBtn.classList.remove('active');
+                localContent.classList.remove('hidden-tab');
+                businessContent.classList.add('hidden-tab');
+            } else {
+                tabBusinessBtn.classList.add('active');
+                tabLocalBtn.classList.remove('active');
+                businessContent.classList.remove('hidden-tab');
+                localContent.classList.add('hidden-tab');
+            }
+        }
+        
+        tabLocalBtn.addEventListener('click', () => setActiveTab('local'));
+        tabBusinessBtn.addEventListener('click', () => setActiveTab('business'));
+        
+        // Убедимся, что user-select заблокирован глобально
+        document.body.style.userSelect = 'none';
+    </script>
 </body>
 </html>
